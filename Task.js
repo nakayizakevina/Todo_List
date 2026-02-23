@@ -24,30 +24,56 @@ AddTaskButton.addEventListener("click", function(){
     Task.value = "";
 
     deleteButton.addEventListener("click", function(){
-    savedTask.removeChild(taskList)
+    SavedTask.removeChild(taskList)
  })
      
  editButton.addEventListener("click", function () {
 
         if (editButton.textContent === "Edit") {
-            // Change span to input
+
             const editInput = document.createElement("input");
             editInput.type = "text";
-            editInput.value = taskText.textContent;
+            editInput.value = textHolder.textContent;
 
-            newTask.replaceChild(editInput, taskText);
+            taskList.replaceChild(editInput, textHolder);
             editButton.textContent = "Save";
 
         } else {
-            // Save changes
-            const updatedText = newTask.querySelector("input").value;
 
-            taskText.textContent = updatedText;
-            newTask.replaceChild(taskText, newTask.querySelector("input"));
+            const editInput = taskList.querySelector("input");
+            textHolder.textContent = editInput.value;
+
+            taskList.replaceChild(textHolder, editInput);
             editButton.textContent = "Edit";
         }
     });
-})
+});
+
+editButton.addEventListener("click", function () {
+
+    if (editButton.textContent === "Edit") {
+        // Create input field
+        const editInput = document.createElement("input");
+        editInput.type = "text";
+        editInput.value = textHolder.textContent;
+
+        // Replace <p> with input
+        taskList.replaceChild(editInput, textHolder);
+
+        editButton.textContent = "Save";
+
+    } else {
+        // Get updated value
+        const editInput = taskList.querySelector("input");
+        textHolder.textContent = editInput.value;
+
+        // Replace input back with <p>
+        taskList.replaceChild(textHolder, editInput);
+
+        editButton.textContent = "Edit";
+    }
+});
+
 
 
 
